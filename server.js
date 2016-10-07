@@ -1,11 +1,14 @@
-'use strict';
+import express from 'express';
+import http from 'http';
+import PizzaMock from './pizzamock';
 
-var express = require('express');
-var http = require('http');
+const pizzaMock = new PizzaMock;
 
-var app = express();
-var server;
+const app = express();
+const server = http.createServer(app);
 
-server.listen(1337, function(){
-	console.log('lead exporter listening on port 1337');
-});
+if(process.env.USE_MOCK==="true"){
+	pizzaMock.initMock();
+} 
+
+server.listen(1337, () => console.log('main service listening on port 1337'));
