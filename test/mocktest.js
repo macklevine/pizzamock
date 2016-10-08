@@ -1,9 +1,12 @@
 import {expect} from 'chai';
-import PizzaMock from './pizzamock';
 import request from 'request';
+import PizzaMock from '../pizzamock';
+import mockChefData from '../mockdata/mockchefdata';
+import mockPizzaData from '../mockdata/mockpizzadata';
 
 const baseUrl = 'http://www.mypizzaserver.com';
 const pizzaMock = new PizzaMock();
+pizzaMock.initMock();
 
 describe('Mocked up routes', () => {
 	describe('/chefs route', () => {
@@ -16,10 +19,11 @@ describe('Mocked up routes', () => {
 					}
 				}, 
 				(err, response) => {
-					console.log(response.body);
-					expect(response.body).to.equal
+					expect(JSON.parse(response.body).chefs[0].name).to.equal(mockChefData[0].name);
+					expect(JSON.parse(response.body).chefs[0].id).to.equal(mockChefData[0].id);
+					done();
 				}
-			});
+			);
 		})
 	});
 });

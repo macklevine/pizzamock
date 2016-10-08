@@ -24,14 +24,3 @@ export default function addRoutes(app){
 	app.get('/chefs/:chefId/pizzas', _getRequestHandler());
 	app.get('/chefs/:chefId/pizzas/:pizzaId', _getRequestHandler());
 };
-
-/*
-GET all chefs
-chefs/
-GET specific chef
-chefs/:chefId
-GET all pizzas made by a given chef
-chefs/:chefId/pizzas
-GET individual pizza
-chefs/:chefId/pizzas/:pizzaId
- */

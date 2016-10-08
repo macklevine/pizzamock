@@ -4,18 +4,6 @@ import mockPizzaData from './mockdata/mockpizzadata';
 
 const baseUrl = 'http://www.mypizzaserver.com';
 
-
-/*
-GET all chefs
-chefs/
-GET specific chef
-chefs/:chefId
-GET all pizzas made by a given chef
-chefs/:chefId/pizzas
-GET individual pizza
-chefs/:chefId/pizzas/:pizzaId
- */
-
 class PizzaMock {
   constructor() {
     this.mock = null;
@@ -23,7 +11,6 @@ class PizzaMock {
 
   initMock() {
     this.mock = nock(baseUrl);
-    console.log(this.mock);
     this.mock.persist()
       .filteringPath(path => {
         path = path.replace(/\/chefs\/[a-zA-Z0-9\-]{36}/g, '/chefs/xxx');
