@@ -1,6 +1,6 @@
 import nock from 'nock';
 
-const baseUri = '/pizzarecipes';
+const pizzaServiceBaseUrl = 'http://www.mypizzaserver.com';
 
 const mockChefData = [
   {
@@ -20,29 +20,32 @@ const mockChefData = [
     id : "a8ea68cc-e227-4cb2-b2cc-d4c8d5fcada6"
   }
 ];
+
+var mockPizzaData = [
+  {
+    name : "Meatlovers",
+    toppings : ['Prosciutoo', 'Italian Sausage', 'Pepperoni', 'Salami']
+  },
+  {
+    name : "Del Mar",
+    toppings : ['Calamari', 'Shrimp', 'Garlic Sauce']
+  },
+  {
+    name : "The Shit-Show",
+    toppings : ['Jagermeister', 'Regret', 'Black Olives']
+  }
+];
+
 /*
-GET pizza recipes
-chefs/:chefId/pizzas/:pizzaId
-
-POST pizza:
+GET all chefs
+chefs/
+GET specific chef
+chefs/:chefId
+GET all pizzas made by a given chef
 chefs/:chefId/pizzas
-
-PUT (modify) pizza:
+GET individual pizza
 chefs/:chefId/pizzas/:pizzaId
-
-GET chefs:
-chefs/
-
-GET chef:
-chefs/:chefId
-
-POST chef:
-chefs/
-
-PUT (modify) chef:
-chefs/:chefId
  */
-
 
 class PizzaMock {
   constructor() {
@@ -50,11 +53,15 @@ class PizzaMock {
   }
 
   initMock() {
-    this.mock = nock(baseUri); //this will mock our base URI.
+    this.mock = nock(pizzaServiceBaseUrl);
+    console.log(this.mock);
     this.mock.persist()
       .filteringPath(path => {
+        console.log(path);
         path = path.replace(/\/chefs\/[a-zA-Z0-9\-]{36}/g, '/chefs/xxx');
         path = path.replace(/\/pizzas\/[a-zA-Z0-9\-]{36}/g, '/pizzas/xxx');
+        console.log(path);
+        return path;
       });
     this.mock.persist()
       .get('/chefs')
@@ -70,7 +77,17 @@ class PizzaMock {
     this.mock.persist()
       .get('/chefs/xxx')
       .reply(200, {
-        chefs: mockChefData[3]
+        chef: mockChefData[3]
+      });
+    this.mock.persist()
+      .get('/chefs/xxx/pizzas')
+      .reply(200, {
+        pizzas: mockPizzaData
+      });
+    this.mock.persist()
+      .get('./chefs/xxx/pizzas/xxx')
+      .reply(200, {
+        pizza: mockPizzaData[0]
       });
   }
 }
