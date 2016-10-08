@@ -1,12 +1,11 @@
 import request from 'request';
 
-const pizzaServiceBaseUrl = 'http://www.mypizzaserver.com';
+const baseUrl = 'http://www.mypizzaserver.com';
 
 function _getRequestHandler(){
 	return (req, res) => {
-		console.log(pizzaServiceBaseUrl + req.url);
 		request({
-			uri : pizzaServiceBaseUrl + req.url,
+			uri : baseUrl + req.url,
 			method : 'GET',
 			qs : req.query
 		}, (err, response) => {

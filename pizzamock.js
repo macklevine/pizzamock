@@ -1,40 +1,9 @@
 import nock from 'nock';
+import mockChefData from './mockdata/mockchefdata';
+import mockPizzaData from './mockdata/mockpizzadata';
 
-const pizzaServiceBaseUrl = 'http://www.mypizzaserver.com';
+const baseUrl = 'http://www.mypizzaserver.com';
 
-const mockChefData = [
-  {
-    name : "Antonio Banderas",
-    id : "68c9db13-ea6b-4bbc-9b27-3f56a2d5c286"
-  },
-  {
-    name : "Slavoj Zizek",
-    id : "cc866238-b579-4550-9d46-f06a5844dec5"
-  },
-  {
-    name : "Carlos Santana",
-    id : "29e77cfe-db8c-4d66-a19a-4f63f752973b"
-  },
-  {
-    name : "Gennady Golovkin",
-    id : "a8ea68cc-e227-4cb2-b2cc-d4c8d5fcada6"
-  }
-];
-
-var mockPizzaData = [
-  {
-    name : "Meatlovers",
-    toppings : ['Prosciutoo', 'Italian Sausage', 'Pepperoni', 'Salami']
-  },
-  {
-    name : "Del Mar",
-    toppings : ['Calamari', 'Shrimp', 'Garlic Sauce']
-  },
-  {
-    name : "The Shit-Show",
-    toppings : ['Jagermeister', 'Regret', 'Black Olives']
-  }
-];
 
 /*
 GET all chefs
@@ -53,14 +22,12 @@ class PizzaMock {
   }
 
   initMock() {
-    this.mock = nock(pizzaServiceBaseUrl);
+    this.mock = nock(baseUrl);
     console.log(this.mock);
     this.mock.persist()
       .filteringPath(path => {
-        console.log(path);
         path = path.replace(/\/chefs\/[a-zA-Z0-9\-]{36}/g, '/chefs/xxx');
         path = path.replace(/\/pizzas\/[a-zA-Z0-9\-]{36}/g, '/pizzas/xxx');
-        console.log(path);
         return path;
       });
     this.mock.persist()

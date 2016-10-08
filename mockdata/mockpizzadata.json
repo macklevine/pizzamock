@@ -1,0 +1,14 @@
+[
+  {
+    "name" : "Meatlovers",
+    "toppings" : ["Prosciutoo", "Italian Sausage", "Pepperoni", "Salami"]
+  },
+  {
+    "name" : "Del Mar",
+    "toppings" : ["Calamari", "Shrimp", "Garlic Sauce"]
+  },
+  {
+    "name" : "The Shit-Show",
+    "toppings" : ["Jagermeister", "Regret", "Black Olives"]
+  }
+]
